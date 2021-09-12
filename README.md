@@ -1,4 +1,4 @@
 # LyricToGoogleImage
-Takes any lyrics and finds the corresponding Google image for it. 
+Takes in lyrics from any song and finds the corresponding Google image for it. 
 
-DEMO: https://www.youtube.com/watch?v=hJvK3WVyIfw (explicit)
+DEMO - https://www.youtube.com/watch?v=hJvK3WVyIfw (explicit)
