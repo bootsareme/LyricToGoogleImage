@@ -1,6 +1,7 @@
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +22,8 @@ import javax.swing.JFileChooser;
  */
 public class Widget extends JFrame {
 
+    // edit this field to change editions
+    private static final boolean LIGHTWEIGHT = false;
     private File lyricFile, imgOutputDestination;
 
     /**
@@ -86,16 +89,32 @@ public class Widget extends JFrame {
 
         start.addActionListener(e -> {
             ArrayList<String> lyrics = IFileHandler.parseFile(lyricFile);
-            try {
-                for (String lyric : lyrics) {
-                    // wait for 100 milliseconds because of Google's rate limit
-                    TimeUnit.MILLISECONDS.sleep(100);
-                    GoogleSearchAPI api = new GoogleSearchAPI(apiKey.getText(), lyric);
-                    api.searchImage();
-                    api.downloadImageFromLink(this.imgOutputDestination);
+            if (LIGHTWEIGHT) {
+                // set removes all duplicates
+                HashSet<String> unique = new HashSet<>(lyrics);
+                try {
+                    for (String lyric : unique) {
+                        // wait for 100 milliseconds because of Google's rate limit
+                        TimeUnit.MILLISECONDS.sleep(100);
+                        GoogleSearchAPI api = new GoogleSearchAPI(apiKey.getText(), lyric);
+                        api.searchImage();
+                        api.downloadImageFromLink(this.imgOutputDestination, true, lyric);
+                    }
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
                 }
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
+            } else {
+                try {
+                    for (String lyric : lyrics) {
+                        // wait for 100 milliseconds because of Google's rate limit
+                        TimeUnit.MILLISECONDS.sleep(100);
+                        GoogleSearchAPI api = new GoogleSearchAPI(apiKey.getText(), lyric);
+                        api.searchImage();
+                        api.downloadImageFromLink(this.imgOutputDestination, false, null);
+                    }
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
             }
             imageFolderStorageButton.setEnabled(true);
             lyricFileButton.setEnabled(true);

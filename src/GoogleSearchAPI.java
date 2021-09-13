@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class GoogleSearchAPI {
 
     private String _apiKey, _query, _link;
-    private int counter = 0;
+    private static int counter = 0;
 
     public GoogleSearchAPI(String apiKey, String query) {
         this._apiKey = apiKey;
@@ -80,7 +80,7 @@ public class GoogleSearchAPI {
      * </p>
      * @param outputFolder Folder where downloaded file is stored.
      */
-    public void downloadImageFromLink(File outputFolder) {
+    public void downloadImageFromLink(File outputFolder, boolean isLightWeight, String lyric) {
         try {
             URL url = new URL(this._link);
             URLConnection connection = url.openConnection();
@@ -89,11 +89,14 @@ public class GoogleSearchAPI {
             for (int i = 0; i < fileData.length; i++)
                 fileData[i] = dataInputStream.readByte();
             dataInputStream.close();
-            String filename = counter + ".png";
+            String filename;
+            if (!isLightWeight) {
+                filename = counter + ".png";
+                counter++;
+            } else filename = lyric + ".png";
             FileOutputStream fileOutputStream = new FileOutputStream(outputFolder + "/" + filename);
             fileOutputStream.write(fileData);
             fileOutputStream.close();
-            counter++;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
