@@ -1,6 +1,7 @@
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -84,9 +85,20 @@ public class Widget extends JFrame {
         });
 
         start.addActionListener(e -> {
+            ArrayList<String> lyrics = IFileHandler.parseFile(lyricFile);
+            try {
+                for (String lyric : lyrics) {
+                    // wait for 100 milliseconds because of Google's rate limit
+                    TimeUnit.MILLISECONDS.sleep(100);
+                    GoogleSearchAPI api = new GoogleSearchAPI(apiKey.getText(), lyric);
+                    api.searchImage();
+                    api.downloadImageFromLink(this.imgOutputDestination);
+                }
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             imageFolderStorageButton.setEnabled(true);
             lyricFileButton.setEnabled(true);
-            ArrayList<String> lyrics = IFileHandler.parseFile(lyricFile);
         });
 
         // add all labels to JFrame Widget

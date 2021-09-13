@@ -1,7 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -20,6 +19,11 @@ import javax.swing.JOptionPane;
  */
 public interface IFileHandler {
     /**
+     * <h2>parseFile Function</h2>
+     * <p>
+     * Parses file by line delimited by spaces.
+     * Used to parse multiline lyric files.
+     * </p>
      * @param file Input file for parsing.
      * @return results
      */
