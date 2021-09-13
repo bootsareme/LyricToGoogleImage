@@ -1,8 +1,9 @@
 import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileOutputStream;
-import java.net.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.HttpURLConnection;
 import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
