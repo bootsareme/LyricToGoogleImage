@@ -87,6 +87,7 @@ public class Widget extends JFrame {
             }
         });
 
+        // when start button is pressed
         start.addActionListener(e -> {
             ArrayList<String> lyrics = IFileHandler.parseFile(lyricFile);
             if (LIGHTWEIGHT) {

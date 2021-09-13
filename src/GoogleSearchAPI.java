@@ -1,14 +1,14 @@
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.HttpURLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import javax.swing.JOptionPane;
 
 /**
  * <h1>GoogleSearchAPI Class</h1>
@@ -46,17 +46,15 @@ public class GoogleSearchAPI {
             connection.setRequestMethod("GET");
             connection.connect();
 
-            if (connection.getResponseCode() != 200) {
+            if (connection.getResponseCode() != 200)
                 throw new RuntimeException("HttpResponseCode: " + connection.getResponseCode());
-            } else {
-
+            else {
                 StringBuilder inline = new StringBuilder();
                 Scanner scanner = new Scanner(url.openStream());
 
                 // Write all the JSON data into a string using a scanner
-                while (scanner.hasNext()) {
+                while (scanner.hasNext())
                     inline.append(scanner.nextLine());
-                }
 
                 // Using the JSON simple library parse the string into a json object
                 JSONParser parse = new JSONParser();
@@ -83,21 +81,16 @@ public class GoogleSearchAPI {
      */
     public void downloadImageFromLink(File outputFolder, boolean isLightWeight, String lyric) {
         try {
-            URL url = new URL(this._link);
-            URLConnection connection = url.openConnection();
-            DataInputStream dataInputStream = new DataInputStream(connection.getInputStream());
-            byte[] fileData = new byte[connection.getContentLength()];
-            for (int i = 0; i < fileData.length; i++)
-                fileData[i] = dataInputStream.readByte();
-            dataInputStream.close();
+            InputStream input = new URL(this._link).openStream();
             String filename;
+
             if (!isLightWeight) {
                 filename = counter + ".png";
                 counter++;
             } else filename = lyric + ".png";
-            FileOutputStream fileOutputStream = new FileOutputStream(outputFolder + "/" + filename);
-            fileOutputStream.write(fileData);
-            fileOutputStream.close();
+
+            Files.copy(input, Paths.get(outputFolder.getAbsolutePath() + "/" + filename));
+            input.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }

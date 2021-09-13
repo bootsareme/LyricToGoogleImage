@@ -28,7 +28,6 @@ public interface IFileHandler {
      * @return results
      */
     static ArrayList<String> parseFile(File file) {
-
         ArrayList<String> results = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(new FileInputStream(file));

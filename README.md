@@ -34,9 +34,13 @@ occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt 
 mollit anim id est laborum.
 ```
+
+Make sure to delete the file contents of your folder if you decide to reuse it for another song. LyricToGoogleImage will error if it detects conflicting filenames.
 <h2>Features</h2>
-IMPORTANT: The Google Search API limits to 100 queries per day for free users. This means that for free users, only 100 images can be generated per day. The lightweight edition attempts to alleviate this quota limit by generating one image for each UNIQUE word. With this in mind, repetitive words count as one, thereby allowing more images to be generated. The images will be out of order, so use the lightweight edition at your discretion.
+IMPORTANT: The Google Search API limits to 100 queries per day for free users. This means that for free users, only 100 images can be generated per day. If the program abruptly stops, this quota limit may have been reached. The lightweight edition attempts to alleviate this quota limit by generating one image for each UNIQUE word. With this in mind, repetitive words count as one, thereby allowing more images to be generated. The images will be out of order, so use the lightweight edition at your discretion.
 <h3>Standard Edition</h3>
 The Standard Edition downloads an image for each word in 'lyrics.txt' file. In the download directory, images label from '000.png' to 'n.png' for n words in 'lyrics.txt'. As discussed above, repetitive lyrics will not be accounted for. Only use this edition if you increase your quota.
 <h3>Lightweight Edition</h3>
 The lightweight edition downloads an image for each UNIQUE word in 'lyrics.txt'. In the download directory, images are labeled by their corresponding lyric. This will result in the images being out of order, as some repetitive lyrics only appear once in this edition.
+<h3>Reporting Bugs</h3>
+If you happen to experience a bug, please read above CAREFULLY before filing an issue. Quota limits and lyric formatting are the most common types of false positives. But, if none of the above applies, file an issue in this repository. Describe in detail what the issue is (complete with screenshots, logs, error messages, etc.), and steps to reproduce it. 
