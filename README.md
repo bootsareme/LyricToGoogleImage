@@ -9,7 +9,6 @@ Go to https://github.com/bootsareme/LyricToGoogleImage/releases to download the 
 
 <h2>Usage</h2>
 To use LyricToGoogleImage, you will need to obtain an API key from Google to use their search engine. You will need to go to https://developers.google.com/custom-search/v1/introduction to obtain the key. Do not worry about anything else listed on the article, you only need to click the blue button that says "Get a Key". Follow the prompt to generate a key.
-
 After you have obtained the API key, run the JAR file. A window should display. There will be a field for you to enter the API key and 2 buttons for you to select a  file containing lyrics and an image download directory. 
 
 It is preferred to style your lyric text file like a poem (see below for examples):
