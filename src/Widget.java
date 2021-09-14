@@ -23,7 +23,7 @@ import javax.swing.JFileChooser;
 public class Widget extends JFrame {
 
     // edit this field to change editions
-    private static final boolean LIGHTWEIGHT = true;
+    private static final boolean LIGHTWEIGHT = false;
     private File lyricFile, imgOutputDestination;
 
     /**
